@@ -29,7 +29,7 @@ public class UserIntegrationTest {
 
     @Before
     public void setup() {
-        userRepository.deleteAll().subscribe();
+        userRepository.deleteAll().block();
 
         this.client = WebTestClient
                 .bindToServer()
@@ -41,7 +41,7 @@ public class UserIntegrationTest {
     @Test
     public void getUser() {
         User user = User.getTestUser();
-        userRepository.save(user).subscribe();
+        userRepository.save(user).block();
         this.client
                 .post()
                 .uri("/api/user/select")
