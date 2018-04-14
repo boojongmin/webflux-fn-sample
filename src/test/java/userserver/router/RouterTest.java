@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.server.RouterFunction;
+import userserver.model.TestModelFactory;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -33,8 +34,8 @@ public class RouterTest {
 
     @Test
     public void createUser() {
-        User user = User.getTestUser();
-        given(handler.createUser(any())).willReturn(created(null).build());
+        User user = TestModelFactory.createUser();
+        given(handler.createUser(any())).willReturn(created(any()).build());
         this.testClient
                 .post()
                 .uri("/api/user/create")

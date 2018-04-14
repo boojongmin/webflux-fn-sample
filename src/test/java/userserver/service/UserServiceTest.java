@@ -1,6 +1,7 @@
 package userserver.service;
 
 import userserver.domain.User;
+import userserver.model.TestModelFactory;
 import userserver.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class UserServiceTest {
 
     @Test
     public void testService() {
-        User user = User.getTestUser();
+        User user = TestModelFactory.createUser();
         userService.createUser(user).block();
         User result = userService.getUser(user.getUserid()).block();
         assertThat(result).isEqualTo(user);

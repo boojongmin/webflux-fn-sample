@@ -36,12 +36,12 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-starter-amqp')
 	compile('org.springframework.boot:spring-boot-starter-aop')
 	compile('org.springframework.boot:spring-boot-starter-webflux')
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
 	compile('org.springframework.boot:spring-boot-starter-logging')
 	compile 'org.projectlombok:lombok:1.16.20'
+	compile 'org.glassfish:javax.el:3.0.1-b10'
 	runtime 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
 	apt "org.projectlombok:lombok:1.16.20"
 	runtime('org.springframework.boot:spring-boot-devtools')

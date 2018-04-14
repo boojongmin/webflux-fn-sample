@@ -1,5 +1,4 @@
 ###
-
 POST http://localhost:8080/api/user/select
 Content-Type: application/json
 
@@ -13,6 +12,16 @@ Content-Type: application/json
 {
     "userid": "userid",
     "password": "password",
+    "name": "부종민"
+}
+
+### binding error
+
+POST http://localhost:8080/api/user/create
+Content-Type: application/json
+
+{
+    "userid": "",
     "name": "부종민"
 }
 

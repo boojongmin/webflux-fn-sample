@@ -1,5 +1,6 @@
 package userserver.handler;
 
+import userserver.handler.validator.ModelValidator;
 import userserver.service.UserService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +18,11 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 @Component
 @RequiredArgsConstructor
 public class UserHandler {
-    @NonNull private UserService userService;
-    private Mono<ServerResponse> notFound = ServerResponse.notFound().build();
+    @NonNull private final UserService userService;
+    @NonNull private final ModelValidator validator;
 
     public Mono<ServerResponse> getUser(ServerRequest serverRequest) {
+        Mono<ServerResponse> notFound = ServerResponse.notFound().build();
         return serverRequest
                 .bodyToMono(String.class)
                 .flatMap(x -> userService.getUser(x))
@@ -31,7 +33,8 @@ public class UserHandler {
     public Mono<ServerResponse> createUser(ServerRequest serverRequest) {
         return serverRequest
                 .bodyToMono(User.class)
-                .flatMap(x -> userService.createUser(x))
+                .flatMap(validator::validate)
+                .flatMap(userService::createUser)
                 .then(ServerResponse.created(URI.create("/api/user/select")).build());
     }
 }
